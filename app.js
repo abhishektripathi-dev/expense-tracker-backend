@@ -1,8 +1,9 @@
+require("dotenv").config(); // Read .env variables
+
+// Importing express, body-parser and cors
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-require("dotenv").config();
 
 // Database
 const sequelize = require("./utils/database");
@@ -51,9 +52,8 @@ PremiumPayment.belongsTo(User, { foreignKey: "userId" });
 User.hasMany(ForgotPassword, { foreignKey: "userId", as: "passwordResets" });
 ForgotPassword.belongsTo(User, { foreignKey: "userId", as: "user" });
 
-// Database connection
+// Database connection and server start
 sequelize
-    // .sync({ force: true })
     .sync()
     .then(() => {
         console.log("Database synced successfully.");
